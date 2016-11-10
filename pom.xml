@@ -8,7 +8,6 @@
   <properties>
     <maven.compiler.source>7</maven.compiler.source>
     <maven.compiler.target>7</maven.compiler.target>
-    <sonar.jacoco.reportPath>${project.build.directory}/coverage-reports/jacoco-ut.exec</sonar.jacoco.reportPath>
   </properties>
 
   <dependencies>
@@ -21,26 +20,30 @@
 
   <build>
     <plugins>
-      <plugin>
+    <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.7.6.201602180812</version>
+        <version>0.7.7.201606060606</version>
+        <configuration>
+            <output>file</output>
+            <append>true</append>
+        </configuration>
         <executions>
-          <execution>
-            <id>pre-unit-test</id>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>post-unit-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
+            <execution>
+                <id>jacoco-initialize</id>
+                <goals>
+                    <goal>prepare-agent</goal>
+                </goals>
+            </execution>
+            <execution>
+                <id>jacoco-site</id>
+                <phase>verify</phase>
+                <goals>
+                    <goal>report</goal>
+                </goals>
+            </execution>
         </executions>
-      </plugin>
+    </plugin>
     </plugins>
   </build>
 
